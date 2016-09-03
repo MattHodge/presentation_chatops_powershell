@@ -8,7 +8,7 @@
 Vagrant.configure("2") do |config|
   config.vm.define "hubotserver" do |hubotserver|
     hubotserver.vm.box = "jptoto/Windows2012R2"
-    hubotserver.vm.hostname = "win-web01"
+    hubotserver.vm.hostname = "hubotserver"
     hubotserver.vm.communicator = :winrm
     hubotserver.winrm.username = "vagrant"
     hubotserver.winrm.password = "vagrant"
@@ -17,22 +17,20 @@ Vagrant.configure("2") do |config|
       vb.memory = 2048
       vb.cpus = 2
     end
-    # config.vm.provision :shell do |shell|
-    #   shell.path = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
-    # end
-    hubotserver.vm.provision "file", source: "demo1.ps1", destination: "C:\\demo\\demo1.ps1"
     hubotserver.vm.provision :shell, inline: "
     if ($PSVersionTable.PSVersion.Major -eq 4)
     {
       choco install powershell 5 -y
     }
+
+    Set-Item WSMan:\\localhost\\Client\\TrustedHosts * -Force
     "
   end
 
   config.vm.define "win2012r2" do |win2012r2|
     # web01.vm.box = "mwrock/Windows2016"
     win2012r2.vm.box = "jptoto/Windows2012R2"
-    win2012r2.vm.hostname = "win-web01"
+    win2012r2.vm.hostname = "win2012r2"
     win2012r2.vm.communicator = :winrm
     win2012r2.winrm.username = "vagrant"
     win2012r2.winrm.password = "vagrant"
@@ -41,9 +39,6 @@ Vagrant.configure("2") do |config|
       vb.memory = 2048
       vb.cpus = 2
     end
-    # config.vm.provision :shell do |shell|
-    #   shell.path = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
-    # end
     config.vm.provision :shell, inline: "
     if ($PSVersionTable.PSVersion.Major -eq 4)
     {

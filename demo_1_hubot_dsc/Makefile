@@ -16,6 +16,9 @@ backup-plan:
 purge:
 	vagrant destroy -f
 
+halt:
+	vagrant halt
+
 help:
 	@echo "    build-demo"
 	@echo "        Build demo from scratch."

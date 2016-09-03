@@ -72,7 +72,7 @@ Invoke-Command -ComputerName $botserver -Credential $cred -ScriptBlock {
 
 Start-DscConfiguration -ComputerName $botserver -Credential $cred -Path $dscOutPath -Verbose -Wait
 
-Restart-Computer -ComputerName $botserver -Credential $cred -Wait -Force
+Restart-Computer -ComputerName $botserver -Credential $cred -Wait -Force -Protocol WSMan
 
 <# backup plan
 
