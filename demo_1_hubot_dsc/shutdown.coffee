@@ -8,18 +8,30 @@
 module.exports = (robot) ->
   robot.respond /(restart|shutdown) (.*)$/i, (msg) ->
     # Get the regex captures
+    console.log "RebootType #{msg.match[1]}"
     rebootType = msg.match[1]
     computerName = msg.match[2]
 
     # Create shutdown command
-    if rebootType = 'restart'
+    if rebootType == 'restart'
       rebootCommand = 'Restart-Computer'
     else
       rebootCommand = 'Stop-Computer'
 
     shell = require('node-powershell')
 
-    powershellCmd = "#{rebootCommand} -ComputerName #{computerName} -Protocol Wsman"
+    # -Credential (Import-Clixml -Path 'C:\\temp\\vagrant_credential.xml') `
+    
+    powershellCmd = "Invoke-Command `
+      -ComputerName #{computerName} `
+      -ScriptBlock {
+        if (!([System.Diagnostics.EventLog]::SourceExists('Hubot')))
+        {
+          New-EventLog -LogName Application -Source Hubot ;
+        }
+        Write-EventLog -LogName 'Application' -Source 'Hubot' -EventID 1 -EntryType Information -Message '#{rebootCommand} triggered from Hubot' ;
+        #{rebootCommand} -Force
+      }"
 
     msg.send "Running Command:```\n
     #{powershellCmd}
