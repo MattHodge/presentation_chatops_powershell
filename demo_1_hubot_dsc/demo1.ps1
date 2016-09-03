@@ -12,7 +12,7 @@ $cred =  New-Object -typename System.Management.Automation.PSCredential -Argumen
 # Set the name of the machine that will host the bot
 $botserver = '172.28.128.100'
 
-$slackAPIKey = "TO_REPLACE"
+$slackAPIKey = "xoxb-19034991254-KuSxkQfZT4vleMLi5blJviOt"
 
 #####################
 # Configure the LCM
@@ -81,5 +81,7 @@ Invoke-Command -ComputerName $botserver -Credential $cred -ScriptBlock {
 }
 
 #>
+
+Test-WSMan -ComputerName $botserver
 
 Start-DscConfiguration -ComputerName $botserver -Credential $cred -UseExisting -Verbose -Wait
