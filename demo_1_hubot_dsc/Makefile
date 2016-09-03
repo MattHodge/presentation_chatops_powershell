@@ -1,13 +1,13 @@
-all: prepare_demo
+all: prep_demo
 
-prepare_demo:
+buil_demo:
 	vagrant up --provision
 	vagrant reload
 	vagrant provision
 	vagrant snapshot save clean
 	# now run dsc against the node
 
-clean:
+prep_demo:
 	vagrant snapshot restore clean --no-provision
 
 purge:

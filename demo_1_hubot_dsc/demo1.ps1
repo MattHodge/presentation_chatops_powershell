@@ -1,3 +1,6 @@
+# RUN FROM WINDOWS10 Machine
+# Run from adminstrative ISE
+
 $dscOutPath = 'C:\DSC'
 
 # Make a folder store the generated DSC configuration
@@ -9,7 +12,7 @@ $cred =  New-Object -typename System.Management.Automation.PSCredential -Argumen
 # Set the name of the machine that will host the bot
 $botserver = '172.28.128.100'
 
-$slackAPIKey = "TODO"
+$slackAPIKey = "TO_REPLACE"
 
 #####################
 # Configure the LCM
@@ -30,7 +33,7 @@ configuration LCMConfig
 
 LCMConfig -OutputPath 'C:\DSC'
 
-Set-DscLocalConfigurationManager -Path $dscOutPath -ComputerName $botserver -Credential $cred
+Set-DscLocalConfigurationManager -Path $dscOutPath -ComputerName $botserver -Credential $cred -Verbose
 
 #####################
 # DSC Local Apply
@@ -72,9 +75,11 @@ Start-DscConfiguration -ComputerName $botserver -Credential $cred -Path $dscOutP
 Restart-Computer -ComputerName $botserver -Credential $cred -Wait -Force
 
 <# backup plan
+
 Invoke-Command -ComputerName $botserver -Credential $cred -ScriptBlock {
     Restart-Computer -Force
 }
+
 #>
 
 Start-DscConfiguration -ComputerName $botserver -Credential $cred -UseExisting -Verbose -Wait
