@@ -20,22 +20,21 @@ module.exports = (robot) ->
 
     shell = require('node-powershell')
 
+    ###
     # -Credential (Import-Clixml -Path 'C:\\temp\\vagrant_credential.xml') `
-    
-    powershellCmd = "Invoke-Command `
-      -ComputerName #{computerName} `
-      -ScriptBlock {
-        if (!([System.Diagnostics.EventLog]::SourceExists('Hubot')))
-        {
-          New-EventLog -LogName Application -Source Hubot ;
-        }
-        Write-EventLog -LogName 'Application' -Source 'Hubot' -EventID 1 -EntryType Information -Message '#{rebootCommand} triggered from Hubot' ;
-        #{rebootCommand} -Force
-      }"
+    ###
 
-    msg.send "Running Command:```\n
-    #{powershellCmd}
-    ```"
+    powershellCmd =
+    "Invoke-Command -ComputerName #{computerName} -ScriptBlock {
+      if (!([System.Diagnostics.EventLog]::SourceExists('Hubot')))
+      {
+        New-EventLog -LogName Application -Source Hubot
+      }
+      Write-EventLog -LogName 'Application' -Source 'Hubot' -EventID 1 -EntryType Information -Message '#{rebootCommand} triggered from Hubot' ;
+      #{rebootCommand} -Force
+    }"
+
+    msg.send "Running Command: ```\n#{powershellCmd}```"
 
     ps = new shell(
       executionPolicy: 'Bypass'
