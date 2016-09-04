@@ -28,3 +28,5 @@ help:
 	@echo "        DSC config already applied to hubot server"
 	@echo "    purge"
 	@echo "        Destroy VMs"
+	@echo "    halt"
+	@echo "        Stop VMs"

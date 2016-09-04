@@ -47,5 +47,3 @@ Vagrant.configure("2") do |config|
     "
   end
 end
-
-# ansible web -i ~/ansibleconfig/inventory.yml -m win_ping
