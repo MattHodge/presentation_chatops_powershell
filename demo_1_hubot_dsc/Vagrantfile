@@ -18,6 +18,10 @@ Vagrant.configure("2") do |config|
       vb.cpus = 2
     end
     hubotserver.vm.provision :shell, inline: "
+    $WUSettings = (New-Object -com 'Microsoft.Update.AutoUpdate').Settings
+    $WUSettings.NotificationLevel = 1
+    $WUSettings.save()
+
     if ($PSVersionTable.PSVersion.Major -eq 4)
     {
       choco install powershell 5 -y
@@ -40,6 +44,10 @@ Vagrant.configure("2") do |config|
       vb.cpus = 2
     end
     config.vm.provision :shell, inline: "
+    $WUSettings = (New-Object -com 'Microsoft.Update.AutoUpdate').Settings
+    $WUSettings.NotificationLevel = 1
+    $WUSettings.save()
+
     if ($PSVersionTable.PSVersion.Major -eq 4)
     {
       choco install powershell 5 -y

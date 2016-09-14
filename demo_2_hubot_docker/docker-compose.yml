@@ -1,0 +1,8 @@
+version: '2'
+services:
+  hubot:
+    image: matthodge/pshubot
+    environment:
+      - HUBOT_SLACK_TOKEN=${HUBOT_SLACK_TOKEN} # create a .env file locally
+    volumes:
+      - ./ssh/:/root/.ssh # drop in the ssh keys and known_hosts

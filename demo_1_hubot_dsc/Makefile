@@ -1,17 +1,18 @@
-all: demo
+all: backup-plan
 
 build-demo:
 	vagrant up --provision
 	vagrant reload
 	vagrant provision
+	vagrant reload
 	vagrant snapshot save clean
 	# now run dsc against the node
 
 clean:
-	vagrant snapshot restore clean --no-provision
-
-backup-plan:
 	vagrant snapshot restore backup_plan --no-provision
+
+backup-plan-prepare:
+	vagrant snapshot save backup_plan
 
 purge:
 	vagrant destroy -f
