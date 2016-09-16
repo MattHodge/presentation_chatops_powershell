@@ -39,3 +39,14 @@ npm start
 
 # Anyone know how to solve this problem with our script?
 # Lets edit shutdown.coffee and update it.
+
+@bender: trello boards
+
+# Set API Keys
+(from .env file)
+
+# try again
+@bender: trello boards
+
+# add a card
+@bender trello add Go to Dutch PowerShell User Group | Website @ http://dupsug.com/
