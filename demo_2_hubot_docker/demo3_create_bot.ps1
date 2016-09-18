@@ -1,6 +1,8 @@
 #
 # FROM MAC
 #
+
+# MAKE SURE THE OTHER BOT IS STOPPED!
 cd ~/projectsgit/presentation_chatops_powershell/demo_2_hubot_docker
 docker-compose up -d
 
@@ -33,4 +35,4 @@ docker-compose logs -f
 #
 
 @bender help
-@bender get process explorer 172.28.128.200
+@bender get service bits 172.28.128.201

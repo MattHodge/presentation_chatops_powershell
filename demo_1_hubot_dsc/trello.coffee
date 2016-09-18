@@ -1,4 +1,4 @@
-# Description:
+  # Description:
 #   Script to work with Trello
 #
 # Commands:
@@ -26,7 +26,7 @@ runPScommand = (command,returnPrefix, msg) ->
     if stdout
       console.log "stdout #{stdout}"
       msg.send "#{stdout}"
-      
+
 module.exports = (robot) ->
   robot.respond /trello boards$/i, (msg) ->
     # environment variable needs to be set

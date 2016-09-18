@@ -1,20 +1,36 @@
+# Have a quick look at Hubot DSC Resource:
+https://github.com/MattHodge/Hubot-DSC-Resource
+
 # RUN FROM Hubotserver
 # Run from adminstrative prompt
+
+# Stop the Hubot service
+Stop-Service -Name Hubot_bender
 
 # Check environment variables
 Get-ChildItem env:
 
-# Stop the Hubot service
-Stop-Service -Name Hubot_demobot
+# set correct slack token
+$env:HUBOT_SLACK_TOKEN = 'GET SLACK TOKEN'
 
-# Take a look at the packages.json file
+# Start the bot
 cd C:\myhubot
+npm start
+
+# test the bot
+@bender help
+@bender pug me
+
+# stop the bot. Lets add our first script
+notepad C:\myhubot\scripts\getprocess.coffee
+
+# open shutdown.coffee in atom
+
+# Copy over shutdown.coffee
+Copy-Item -Path 'C:\vagrant\shutdown.coffee' -Destination 'C:\myhubot\scripts'
+
+#stop bot, check out package.json. Notice in dependencies list no 'powershell-node' package
 cat package.json
-
-# Notice in dependencies list no 'powershell-node' package
-
-# Create shutdown.coffee
-notepad C:\myhubot\scripts\shutdown.coffee
 
 # Install the additional package
 npm install node-powershell --save
@@ -39,14 +55,26 @@ npm start
 
 # Anyone know how to solve this problem with our script?
 # Lets edit shutdown.coffee and update it.
+# Use atom to edit shutdown.coffee
 
+# Copy trello script
+Copy-Item -Path 'C:\vagrant\trello.*' -Destination 'C:\myhubot\scripts'
+
+# Start the bot with the new script
+npm start
+
+@bender: help
 @bender: trello boards
 
 # Set API Keys
 (from .env file)
+
+npm start
 
 # try again
 @bender: trello boards
 
 # add a card
 @bender trello add Go to Dutch PowerShell User Group | Website @ http://dupsug.com/
+
+# stop hubot on Windows

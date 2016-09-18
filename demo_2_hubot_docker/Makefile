@@ -1,4 +1,4 @@
-all: demo
+all: clean
 
 demo:
 	docker-compose up

@@ -16,23 +16,15 @@ Vagrant.configure("2") do |config|
     hubotserver.vm.provider "virtualbox" do |vb|
       vb.memory = 2048
       vb.cpus = 2
+      vb.gui = true
+      vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+      vb.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
     end
-    hubotserver.vm.provision :shell, inline: "
-    $WUSettings = (New-Object -com 'Microsoft.Update.AutoUpdate').Settings
-    $WUSettings.NotificationLevel = 1
-    $WUSettings.save()
-
-    if ($PSVersionTable.PSVersion.Major -eq 4)
-    {
-      choco install powershell 5 -y
-    }
-
-    Set-Item WSMan:\\localhost\\Client\\TrustedHosts * -Force
-    "
+    hubotserver.vm.provision "shell", path: "provision/generic.ps1"
+    hubotserver.vm.provision "shell", path: "provision/hubot.ps1"
   end
 
   config.vm.define "win2012r2" do |win2012r2|
-    # web01.vm.box = "mwrock/Windows2016"
     win2012r2.vm.box = "jptoto/Windows2012R2"
     win2012r2.vm.hostname = "win2012r2"
     win2012r2.vm.communicator = :winrm
@@ -42,16 +34,9 @@ Vagrant.configure("2") do |config|
     win2012r2.vm.provider "virtualbox" do |vb|
       vb.memory = 2048
       vb.cpus = 2
+      vb.gui = true
+      vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     end
-    config.vm.provision :shell, inline: "
-    $WUSettings = (New-Object -com 'Microsoft.Update.AutoUpdate').Settings
-    $WUSettings.NotificationLevel = 1
-    $WUSettings.save()
-
-    if ($PSVersionTable.PSVersion.Major -eq 4)
-    {
-      choco install powershell 5 -y
-    }
-    "
+    win2012r2.vm.provision "shell", path: "provision/generic.ps1"
   end
 end

@@ -4,6 +4,5 @@ services:
     image: matthodge/pshubot
     environment:
       - HUBOT_SLACK_TOKEN=${HUBOT_SLACK_TOKEN} # create a .env file locally
-      - JUMPHOST_HOSTNAME=172.28.128.200
     volumes:
       - ./ssh/:/root/.ssh # drop in the ssh keys and known_hosts
