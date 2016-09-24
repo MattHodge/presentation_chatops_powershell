@@ -1,4 +1,4 @@
-  # Description:
+# Description:
 #   Script to work with Trello
 #
 # Commands:

@@ -20,7 +20,7 @@ module.exports = (robot) ->
 
     shell = require('node-powershell')
 
-    powershellCmd = "#{rebootCommand} -ComputerName '#{computerName}' -Protocol WSman -Force"
+    powershellCmd = "#{rebootCommand} -ComputerName #{computerName} -Protocol WSman -Force"
 
     msg.send "Running Command: ```\n#{powershellCmd}```"
 

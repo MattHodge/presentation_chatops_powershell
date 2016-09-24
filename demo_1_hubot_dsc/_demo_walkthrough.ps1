@@ -1,5 +1,6 @@
-# Have a quick look at Hubot DSC Resource:
-https://github.com/MattHodge/Hubot-DSC-Resource
+################
+# DEMO 1 - Bring Bot Online
+################
 
 # RUN FROM Hubotserver
 # Run from adminstrative prompt
@@ -10,7 +11,7 @@ Stop-Service -Name Hubot_bender
 # Check environment variables
 Get-ChildItem env:
 
-# set correct slack token
+# set correct slack token - get it via Slack Web site
 $env:HUBOT_SLACK_TOKEN = 'GET SLACK TOKEN'
 
 # Start the bot
@@ -21,22 +22,37 @@ npm start
 @bender help
 @bender pug me
 
-# stop the bot. Lets add our first script
+################
+# DEMO 2 - Community Scripts
+################
+
+# Install npm package
+npm install hubut-hackernews --save
+
+# Look at package.json
+cat C:\myhubot\package.json
+
+# Add to ‘hubot-hackernews’ external scripts
+notepad C:\myhubot\external-scripts.json
+
+################
+# DEMO 3 - Create Custom Script
+################
+
+# stop the bot. Add custom script
 notepad C:\myhubot\scripts\getprocess.coffee
+
+@bender help
+@bender get process explorer
+@bender get process svchost
+@bender get process xxxxx
+
+# make it more pretty
 
 # open shutdown.coffee in atom
 
 # Copy over shutdown.coffee
 Copy-Item -Path 'C:\vagrant\shutdown.coffee' -Destination 'C:\myhubot\scripts'
-
-#stop bot, check out package.json. Notice in dependencies list no 'powershell-node' package
-cat package.json
-
-# Install the additional package
-npm install node-powershell --save
-
-# See the change in package.json
-cat package.json
 
 # Start the bot with the new script
 npm start
